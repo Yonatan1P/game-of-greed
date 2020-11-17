@@ -9,7 +9,7 @@ class GameLogic:
     @staticmethod
     def roll_dice(number):
         all_dice = []
-        while number >= 0:
+        while number:
             random_number=random.randint(1,6)
             all_dice.append(random_number)
             number = number-1
