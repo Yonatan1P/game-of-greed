@@ -9,7 +9,7 @@ class GameLogic:
     @staticmethod
     def roll_dice(number):
         all_dice = []
-        while number >= 0:
+        while number:
             random_number=random.randint(1,6)
             all_dice.append(random_number)
             number = number-1
@@ -17,11 +17,20 @@ class GameLogic:
 
 class Banker:
 
-    def shelf(self):
-        pass
+    def __init__(self):
+        self.balance = 0
+        self.shelved = 0
+
+    def shelf(self, shelved):
+        self.shelved += shelved
+        return self.shelved
 
     def bank(self):
-        pass
+        self.balance += self.shelved
+        self.clear_shelf()
+        return self.balance
 
     def clear_shelf(self):
-        pass
+        self.shelved = 0
+        return self.shelved
+       
