@@ -7,8 +7,13 @@ class GameLogic:
         pass
 
     @staticmethod
-    def roll_dice():
-        pass
+    def roll_dice(number):
+        all_dice = []
+        while number >= 0:
+            random_number=random.randint(1,6)
+            all_dice.append(random_number)
+            number = number-1
+        return all_dice
 
 class Banker:
 
@@ -17,6 +22,6 @@ class Banker:
 
     def bank(self):
         pass
-        
+
     def clear_shelf(self):
         pass
