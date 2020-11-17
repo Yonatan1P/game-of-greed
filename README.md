@@ -1,4 +1,6 @@
 # Game of Greed
+Pull Request: https://github.com/Yonatan1P/game-of-greed/pull/2
+
 Contributors: Brendan Welzien, Mark Bell, Will Motchoffo, Yoni Palagashvili
 
 A python app that allows a player to roll dice, collect points, and gamble to beat the computer. 
