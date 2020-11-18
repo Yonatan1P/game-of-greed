@@ -44,7 +44,7 @@ class Game:
         user_input = input("> ")
         if user_input == "q":
             self.user_quit()
-
+            return
         score = GameLogic.calculate_score(roll)
         print(f"You have {score} unbanked points and 5 dice remaining")
         print("(r)oll again, (b)ank your points or (q)uit:")
@@ -53,8 +53,8 @@ class Game:
             self.user_quit()
             return
         if user_input == "b":
-            print(f"You banked {self.banker.shelf()} in round {self.round_}")
-            print(f"Total score is {self.banker.bank()}")
+            print(f"You banked {self.banker.shelf(score)} points in round {self.round_}")
+            print(f"Total score is {self.banker.bank()} points")
             self.game_round()
 
     def user_quit(self):
