@@ -11,6 +11,8 @@ class Game:
         self.num_rounds = num_rounds
         self.round_ = 0
         self._roller = None
+
+
     def play(self, roller=None):
         """Entry point for playing (or declining) a game
 
@@ -34,8 +36,9 @@ class Game:
         else:
             self.decline_game()
 
+
     def game_round(self):
-        self.round_ +=1
+        self.round_ += 1
         print(f"Starting round {self.round_}")
         print(f"Rolling 6 dice...")
         roll = self._roller(6)
@@ -44,7 +47,7 @@ class Game:
         user_input = input("> ")
         if user_input == "q":
             self.user_quit()
-
+            return
         score = GameLogic.calculate_score(roll)
         print(f"You have {score} unbanked points and 5 dice remaining")
         print("(r)oll again, (b)ank your points or (q)uit:")
@@ -52,6 +55,7 @@ class Game:
         if user_input == "q":
             self.user_quit()
             return
+            
         if user_input == "b":
             print(f"You banked {self.banker.shelf()} in round {self.round_}")
             print(f"Total score is {self.banker.bank()}")
@@ -65,7 +69,7 @@ class Game:
         output = "*** "
         for die in dice_rolled:
             output += f"{die} "
-        output+= "***"
+        output += "***"
         print(output)
 
     def decline_game(self):
@@ -74,9 +78,7 @@ class Game:
     def start_game(self):
         self.round_ = 0
         self.game_round()
-        
-
-
+    
 if __name__ == "__main__":
     game = Game()
     game.play()
