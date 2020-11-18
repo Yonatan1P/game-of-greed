@@ -57,8 +57,8 @@ class Game:
             return
             
         if user_input == "b":
-            print(f"You banked {self.banker.shelf()} in round {self.round_}")
-            print(f"Total score is {self.banker.bank()}")
+            print(f"You banked {self.banker.shelf(score)} points in round {self.round_}")
+            print(f"Total score is {self.banker.bank()} points")
             self.game_round()
 
     def user_quit(self):

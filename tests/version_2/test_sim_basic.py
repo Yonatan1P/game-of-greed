@@ -11,12 +11,10 @@ def test_quitter():
     assert not errors, errors[0]
 
 
-
 def test_one_and_done():
     game = Game()
     errors = diff(game.play, path="tests/version_2/one_and_done.sim.txt")
     assert not errors, errors[0]
-
 
 
 def test_single_bank():
