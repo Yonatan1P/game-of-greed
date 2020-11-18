@@ -67,6 +67,7 @@ class Game:
         if user_input == "q":
             self.user_quit()
             return
+            
         if user_input == "b":
             print(f"You banked {self.banker.shelf(score)} points in round {self.round_}")
             print(f"Total score is {self.banker.bank()} points")
@@ -88,7 +89,7 @@ class Game:
         output = "*** "
         for die in dice_rolled:
             output += f"{die} "
-        output+= "***"
+        output += "***"
         print(output)
 
     def decline_game(self):
@@ -96,8 +97,7 @@ class Game:
 
     def start_game(self):
         self.round_ = 0
-        self.start_new_round()
-        
+        self.start_new_round()      
 
 
 if __name__ == "__main__":
