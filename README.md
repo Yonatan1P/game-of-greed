@@ -123,7 +123,7 @@ mirroring the 4 sim.txt files provided:
 
 - [x] quitter
 
-## Day 2 (Version 3)
+## Day 3 (Version 3)
 Wednesday 11/18/2020
 
 Advanced Simulation
