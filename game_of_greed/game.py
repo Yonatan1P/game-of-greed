@@ -61,6 +61,10 @@ class Game:
         # TODO, we should not pass the roll, but instead pass the kept dice
         # once that function is built
         self.dice_remaining -= len(kept_dice)
+        # print('########################')
+        # print(f"length of of kept dice{len(kept_dice)}")
+        # print(f"dice remaining:{self.dice_remaining}")
+        # print('########################')
         self.game_round_gambling_phase(roll)
 
     def game_round_gambling_phase(self, kept_dice):
