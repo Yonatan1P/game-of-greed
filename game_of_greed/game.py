@@ -43,12 +43,23 @@ class Game:
         self.game_round_rolling_phase()
 
     def game_round_rolling_phase(self):
+        if not self.dice_remaining:
+            self.dice_remaining = 6
         print(f"Rolling {self.dice_remaining} dice...")
         roll = self._roller(self.dice_remaining)
-        self.print_dice(roll)
         self.game_round_keep_phase(roll)
 
-    def game_round_keep_phase(self,roll):
+    def game_round_keep_phase(self, roll):
+        self.print_dice(roll)
+        if not GameLogic.calculate_score(roll):
+            print('****************************************\n'
+                  '**        Zilch!!! Round over         **\n'
+                  '****************************************')
+            print(f"You banked {self.banker.balance} points in round {self.round_}")
+            print(f"Total score is {self.banker.balance} points")
+            self.banker.clear_shelf()
+            self.start_new_round()
+            return
         kept_dice = None
         user_input = None
         while not user_input:
@@ -57,14 +68,15 @@ class Game:
             if user_input == "q":
                 self.user_quit()
                 return
+        parsed_input = [int(number) for number in user_input if number.isnumeric()]
+        if not GameLogic.validate_keepers(roll, parsed_input):
+            print('Cheater!!! Or possibly made a typo...')
+            self.game_round_keep_phase(roll)
+            return
         kept_dice = GameLogic.get_scorers(roll)
         # TODO, we should not pass the roll, but instead pass the kept dice
         # once that function is built
         self.dice_remaining -= len(kept_dice)
-        # print('########################')
-        # print(f"length of of kept dice{len(kept_dice)}")
-        # print(f"dice remaining:{self.dice_remaining}")
-        # print('########################')
         self.game_round_gambling_phase(roll)
 
     def game_round_gambling_phase(self, kept_dice):
@@ -95,7 +107,7 @@ class Game:
         return wants_to_keep
 
     def user_quit(self):
-        print(f"Thanks for playing. You earned {self.banker.bank()} points")
+        print(f"Thanks for playing. You earned {self.banker.balance} points")
 
     def print_dice(self, dice_rolled):
         output = "*** "
