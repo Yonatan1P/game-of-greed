@@ -51,6 +51,15 @@ class Game:
 
     def game_round_keep_phase(self, roll):
         self.print_dice(roll)
+        if not GameLogic.calculate_score(roll):
+            print('****************************************\n'
+                  '**        Zilch!!! Round over         **\n'
+                  '****************************************')
+            print(f"You banked {self.banker.balance} points in round {self.round_}")
+            print(f"Total score is {self.banker.balance} points")
+            self.banker.clear_shelf()
+            self.start_new_round()
+            return
         kept_dice = None
         user_input = None
         while not user_input:
@@ -59,7 +68,7 @@ class Game:
             if user_input == "q":
                 self.user_quit()
                 return
-        parsed_input = [number for number in user_input if number.isnumeric()]
+        parsed_input = [int(number) for number in user_input if number.isnumeric()]
         if not GameLogic.validate_keepers(roll, parsed_input):
             print('Cheater!!! Or possibly made a typo...')
             self.game_round_keep_phase(roll)
@@ -98,7 +107,7 @@ class Game:
         return wants_to_keep
 
     def user_quit(self):
-        print(f"Thanks for playing. You earned {self.banker.bank()} points")
+        print(f"Thanks for playing. You earned {self.banker.balance} points")
 
     def print_dice(self, dice_rolled):
         output = "*** "
