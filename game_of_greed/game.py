@@ -7,6 +7,7 @@ class Game:
     """
 
     def __init__(self, num_rounds=20):
+        self.dice_remaining = None
         self.banker = Banker()
         self.num_rounds = num_rounds
         self.round_ = 0
@@ -38,41 +39,45 @@ class Game:
     def start_new_round(self):
         self.round_ += 1
         print(f"Starting round {self.round_}")
-        self.game_round_rolling_phase(6)
+        self.dice_remaining = 6
+        self.game_round_rolling_phase()
 
-    def game_round_rolling_phase(self, num_of_dice):
-        print(f"Rolling {num_of_dice} dice...")
-        roll = self._roller(num_of_dice)
+    def game_round_rolling_phase(self):
+        print(f"Rolling {self.dice_remaining} dice...")
+        roll = self._roller(self.dice_remaining)
         self.print_dice(roll)
-        self.game_round_keep_phase(num_of_dice, roll)
+        self.game_round_keep_phase(roll)
 
-    def game_round_keep_phase(self, num_of_dice, roll):
+    def game_round_keep_phase(self,roll):
         kept_dice = None
-        while not kept_dice:
+        user_input = None
+        while not user_input:
             print("Enter dice to keep, or (q)uit:")
             user_input = input("> ")
             if user_input == "q":
                 self.user_quit()
                 return
-            kept_dice = self.validate_dice(roll, user_input)
+        kept_dice = GameLogic.get_scorers(roll)
         # TODO, we should not pass the roll, but instead pass the kept dice
         # once that function is built
-        self.game_round_gambling_phase(num_of_dice-len(kept_dice), roll)
+        self.dice_remaining -= len(kept_dice)
+        self.game_round_gambling_phase(roll)
 
-    def game_round_gambling_phase(self, num_of_dice, kept_dice):
+    def game_round_gambling_phase(self, kept_dice):
         score = GameLogic.calculate_score(kept_dice)
-        print(f"You have {score} unbanked points and {num_of_dice} dice remaining")
+        self.banker.shelf(score)
+        print(f"You have {self.banker.shelved} unbanked points and {self.dice_remaining} dice remaining")
         print("(r)oll again, (b)ank your points or (q)uit:")
         user_input = input("> ")
         if user_input == "r":
-            self.game_round_rolling_phase(num_of_dice)
+            self.game_round_rolling_phase()
             return
         if user_input == "q":
             self.user_quit()
             return
             
         if user_input == "b":
-            print(f"You banked {self.banker.shelf(score)} points in round {self.round_}")
+            print(f"You banked {self.banker.shelved} points in round {self.round_}")
             print(f"Total score is {self.banker.bank()} points")
             self.start_new_round()
             return
