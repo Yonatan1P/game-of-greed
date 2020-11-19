@@ -30,6 +30,7 @@ def diff(game_play_func, path="", sample=""):
         nonlocal actual_text
 
         actual_text += "".join(args) + "\n"
+        real_print(actual_text)
 
     # inner function to mock input functionality
     def mock_input(*args):

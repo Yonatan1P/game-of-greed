@@ -8,7 +8,7 @@ class GameLogic:
         score = 0
         dice = Counter(dice_roll)
         # scoring for a straight or three sets of pairs
-        if len(dice) == 6 or (len(dice) == 3 and dice[3] == 2):
+        if len(dice) == 6 or (len(dice) == 3 and dice.most_common()[2] == 2):
             return 1500
         sets = dice.most_common()
         if len(sets) and sets[0][1] >= 3:
@@ -48,4 +48,7 @@ class GameLogic:
             exclude_score = GameLogic.calculate_score(test_dice)
             if include_score != exclude_score:
                 scorers.append(die)
+        # print("#####################")
+        # print(str(scorers))
+        # print("#####################")
         return tuple(scorers)
