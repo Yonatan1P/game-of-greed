@@ -64,6 +64,9 @@ class Game:
         print(f"You have {score} unbanked points and {num_of_dice} dice remaining")
         print("(r)oll again, (b)ank your points or (q)uit:")
         user_input = input("> ")
+        if user_input == "r":
+            self.game_round_rolling_phase(num_of_dice)
+            return
         if user_input == "q":
             self.user_quit()
             return
