@@ -37,6 +37,9 @@ class Game:
             self.decline_game()
 
     def start_new_round(self):
+        if self.round_ > self.num_rounds:
+            self.user_quit()
+            return
         self.round_ += 1
         print(f"Starting round {self.round_}")
         self.dice_remaining = 6
