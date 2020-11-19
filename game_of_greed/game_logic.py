@@ -37,3 +37,15 @@ class GameLogic:
             all_dice.append(random_number)
             number = number-1
         return all_dice
+
+    @staticmethod
+    def get_scorers(dice):
+        include_score = GameLogic.calculate_score(dice)
+        scorers = []
+        for die in dice:
+            test_dice = list(dice)
+            test_dice.remove(die)
+            exclude_score = GameLogic.calculate_score(test_dice)
+            if include_score != exclude_score:
+                scorers.append(die)
+        return tuple(scorers)
