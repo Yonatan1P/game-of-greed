@@ -157,3 +157,17 @@ In the keep phase of the game round, if there are no points calculated from the 
 - [x] test_zilcher()
 - [x] test_validate_illegal_keepers
 - [x] test_validate_illegal_overflow
+
+### Day 4 (version 4)
+Creating Bots
+#### Features
+All team members contributed their own personalized bots to the bots.py file. All team members successfully created their own bots that were able to beat NervousNellie. 
+
+- [x] YoniBot
+- [x] MarkBot
+- [x] BrendanBot
+- [x] WillBot
+
+#### Testing
+Out of 100 games played, all of the new bots beat NervousNellie's score
+No actual tests were written
