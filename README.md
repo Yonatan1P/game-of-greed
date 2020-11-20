@@ -5,6 +5,8 @@ Day 2 Pull Request: https://github.com/Yonatan1P/game-of-greed/pull/4
 
 Day 3 Pull Request: https://github.com/Yonatan1P/game-of-greed/pull/8
 
+Day 4 Pull Request: https://github.com/Yonatan1P/game-of-greed/pull/11
+
 Contributors: Brendan Welzien, Mark Bell, Will Motchoffo, Yoni Palagashvili
 
 A python app that allows a player to roll dice, collect points, and gamble to beat the computer. 

@@ -164,8 +164,8 @@ class YoniBot(BaseBot):
         elif self.unbanked_points >= 350 and self.dice_remaining == 2:
             return "b"
 
-        if self.unbanked_points + self.total_score >= 10000:
-            return "b"
+        # if self.unbanked_points + self.total_score >= 10000:
+        #     return "b"
         return "r"
 
       
@@ -194,7 +194,7 @@ class evilBrendan(BaseBot):
 
 if __name__ == "__main__":
 
-    num_games = 100
+    num_games = 1000
     NervousNellie.play(num_games)
     MiddlingMargaret.play(num_games)
     DaringDarla.play(num_games)
