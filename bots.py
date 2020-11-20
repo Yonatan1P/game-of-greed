@@ -273,9 +273,9 @@ class evilBrendan(BaseBot):
 
 if __name__ == "__main__":
     num_games = 1000
-    # NervousNellie.play(num_games)
-    # MiddlingMargaret.play(num_games)
-    # DaringDarla.play(num_games)
+    NervousNellie.play(num_games)
+    MiddlingMargaret.play(num_games)
+    DaringDarla.play(num_games)
     evilBrendan.play(num_games)
-    # YoniBot.play(num_games)
+    YoniBot.play(num_games)
     MarkBot.play(num_games)
