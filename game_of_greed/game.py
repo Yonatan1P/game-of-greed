@@ -58,7 +58,7 @@ class Game:
             print('****************************************\n'
                   '**        Zilch!!! Round over         **\n'
                   '****************************************')
-            print(f"You banked {self.banker.balance} points in round {self.round_}")
+            print(f"You banked 0 points in round {self.round_}")
             print(f"Total score is {self.banker.balance} points")
             self.banker.clear_shelf()
             self.start_new_round()
