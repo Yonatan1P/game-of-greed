@@ -152,6 +152,43 @@ class DaringDarla(BaseBot):
 
         return "r"
 
+      
+class MarkBot(BaseBot):
+    """
+    self.dice_remaining
+    self.unbanked_points
+    self.total_score
+    """
+
+    def __init__(self):
+        from collections import Counter
+        self.Counter = Counter
+        super().__init__()
+        self.rounds_remaining = None
+
+    # this is a pretty close approximation of chance to fail, could be improved
+    @staticmethod
+    def chance_to_fail(num_of_dice):
+        return {
+            1 : 2/3,
+            2 : 4/9,
+            3 : 8/27 - 1/36,
+            4 : 16/81 - 1/36,
+            5 : 32/243 - 1/36,
+            6 : 64/729 - 1/36 - 1/6**6
+        }[num_of_dice]
+
+
+    def _roll_bank_or_quit(self):
+        # always roll when you have 6 dice to roll
+        if not self.dice_remaining or self.dice_remaining == 6:
+            return "r"
+
+        # bank if we think we have a high chance of failure
+        if MarkBot.chance_to_fail(self.dice_remaining) > 109/(self.unbanked_points+1):
+            return "b"
+        return "r"
+
 
 class YoniBot(BaseBot):
 
@@ -184,19 +221,61 @@ class evilBrendan(BaseBot):
         if self.unbanked_points <= 400:
             return "r"
 
-
     def _enter_dice(self):
         """simulate user entering which dice to keep.
         Defaults to all scoring dice"""
         
 
-        return super()._enter_dice()
+        roll = GameLogic.get_scorers(self.last_roll)
+
+        roll_string = ""
+
+        # if we all dice score, please keep them all
+        # if we are intending on banking, lets keep all scoring dice
+        if len(roll) == len(self.last_roll) or self._roll_bank_or_quit() == "b":
+            # self.real_print("\nINTENDING TO BANK:",self.dice_remaining)
+            for value in roll:
+                roll_string += str(value)
+
+            self.report("> " + roll_string)
+            return roll_string
+
+
+        # lets go for highest average of points per die
+        highest_score_per_die = 0
+        highest_scoring_dice = 0
+        highest_scoring_len = 0
+
+        # check each combination of dice, to determine the 'best' value per die, and keep that set
+        roll = list(roll)
+        roll.sort()
+        for i in range(len(roll)):
+            for j in range(len(roll)):
+                if len(roll[i:j+1]):
+                    test_dice = roll[i:j+1]
+                    test_score = GameLogic.calculate_score(roll[i:j+1])/len(test_dice)
+                    if test_score > highest_score_per_die :
+                        highest_score_per_die = test_score
+                        highest_scoring_dice = test_dice
+                        highest_scoring_len = len(test_dice)
+                    elif test_score == highest_score_per_die:
+                        if(highest_score_per_die >= 100):
+                            if len(test_dice) > highest_scoring_len:
+                                highest_score_per_die = test_score
+                                highest_scoring_dice = test_dice
+                                highest_scoring_len = len(test_dice)
+
+        for value in highest_scoring_dice:
+            roll_string += str(value)
+
+        self.report("> " + roll_string)
+        return roll_string
 
 if __name__ == "__main__":
-
     num_games = 100
     NervousNellie.play(num_games)
     MiddlingMargaret.play(num_games)
     DaringDarla.play(num_games)
     evilBrendan.play(num_games)
     YoniBot.play(num_games)
+    MarkBot.play(num_games)
