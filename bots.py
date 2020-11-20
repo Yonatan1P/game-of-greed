@@ -168,16 +168,35 @@ class YoniBot(BaseBot):
             return "b"
         return "r"
 
+      
+class evilBrendan(BaseBot):
+    """VERY aggressive playstyle : all or nothing baby"""
+    def _roll_bank_or_quit(self):
+        if self.dice_remaining >= 3:
+            return "r"
+        if self.unbanked_points >= 800 or self.dice_remaining < 3:
+            return "b"
+        while self.unbanked_points > 350:
+            if self.dice_remaining >= 3:
+                return "r"
+            else:
+                return "b"
+        if self.unbanked_points <= 400:
+            return "r"
+
+
     def _enter_dice(self):
         """simulate user entering which dice to keep.
         Defaults to all scoring dice"""
+        
 
         return super()._enter_dice()
 
-
 if __name__ == "__main__":
-    num_games = 1000
+
+    num_games = 100
     NervousNellie.play(num_games)
     MiddlingMargaret.play(num_games)
     DaringDarla.play(num_games)
+    evilBrendan.play(num_games)
     YoniBot.play(num_games)
