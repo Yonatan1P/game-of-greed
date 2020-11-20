@@ -3,6 +3,8 @@ Day 1 Pull Request: https://github.com/Yonatan1P/game-of-greed/pull/2
 
 Day 2 Pull Request: https://github.com/Yonatan1P/game-of-greed/pull/4
 
+Day 3 Pull Request: https://github.com/Yonatan1P/game-of-greed/pull/8
+
 Contributors: Brendan Welzien, Mark Bell, Will Motchoffo, Yoni Palagashvili
 
 A python app that allows a player to roll dice, collect points, and gamble to beat the computer. 
@@ -121,3 +123,51 @@ mirroring the 4 sim.txt files provided:
 
 - [x] quitter
 
+## Day 3 (Version 3)
+Wednesday 11/18/2020
+
+Advanced Simulation
+
+We forgot one feature from version 2, which was to give the user the option to roll dice again. This was a simple fix, once it was brought to our attention by Aliyah.
+
+Again, we worked as a team to process through the tests that helped guide us through our logic. Many updates in this new version caused problems in previous versions, which forced us to debug. It total the lab took us about 6 hours in total, primarily because of a bug we found in our score calculator. Once that bug was found, it was easy to move forward through getting scorers. Once we had the proper scores calculated and we could get the scoring dice, we were able to validate the keepers, and accuse the cheaters. The Zilch case just took a simple if statement.
+
+### Features
+All implemented from version 3 tests
+#### Get Scorers
+In our game logic, we calculate the score with all the dice, and compare that to the each score that excludes 1 dice. If the excluded dice score is different from the all dice score, then the specific die excluded is a scoring die.
+#### Validate Keepers
+Also in the game logic, we run the requested keepers and the rolled dice through the Counter. If the user requests to keep more dice of any number than there are in the dice rolled, the user is accused of cheating or mistyping.
+#### Hot Roll
+In the game round rolling phase, there is an if statement that runs if there are no remaining dice (ie all the dice were kept), then it resets the number of remaining dice to 6.
+#### Handle Zilch
+In the keep phase of the game round, if there are no points calculated from the dice rolled, then a zilch message is printed and a new round is started.
+
+### Testing
+#### Test Get Scorers
+- [x] test_get_back_one
+#### Test Validate Keepers
+- [x] test_validate_legal_keepers
+- [x] test_validate_illegal_keepers
+- [x] test_validate_illegal_overflow
+#### Test Sim Advanced
+- [x] test_repeat_roller()
+- [x] test_hot_dice()
+- [x] test_cheat_and_fix()
+- [x] test_zilcher()
+- [x] test_validate_illegal_keepers
+- [x] test_validate_illegal_overflow
+
+### Day 4 (version 4)
+Creating Bots
+#### Features
+All team members contributed their own personalized bots to the bots.py file. All team members successfully created their own bots that were able to beat NervousNellie. 
+
+- [x] YoniBot
+- [x] MarkBot
+- [x] BrendanBot
+- [x] WillBot
+
+#### Testing
+Out of 100 games played, all of the new bots beat NervousNellie's score
+No actual tests were written
